@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default.html}">
+<head>
+  <title>notice</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="my-4">
+    <h1>공지사항</h1>
+  </div>
+  <div class="d-flex py-2">
+    <a class="btn btn-primary" href="/admin/notice/new" role="button">추가</a>
+  </div>
+  <div class="py-2">
+    <div id="noticeList" class="list-group">
+      <div class="list-group-item-action list-group-item list-group-item-light"
+           th:each="notice : ${page.data}">
+        <div class="d-flex w-100">
+          <h5 class="mb-1">
+            <a class="post-list-title text-reset" th:href="@{/admin/notice/update(noticeId=${notice.getId()})}"
+               th:text="${notice.getTitle()}"></a>
+          </h5>
+          <small class="ms-auto" th:text="${notice.getCreatedAt()}"></small>
+        </div>
+        <div class="mb-1" th:text="${notice.getPreview()}"></div>
+        <div class="d-flex">
+          <button id="modify" type="button" class="ms-auto btn btn-outline-secondary btn-sm _update-button"
+                  th:attr="data-notice-id=${notice.getId()}">수정</button>
+          <button id="delete" type="button" class="ms-1 btn btn-outline-secondary btn-sm _delete-button"
+                  th:attr="data-notice-id=${notice.getId()}">삭제</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <ul id="pageNavigation" class="justify-content-center pagination"></ul>
+  </nav>
+  <div class="modal" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">확인</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          정말로 삭제하시겠습니까?
+        </div>
+        <div class="modal-footer">
+          <button id="modalConfirm" type="button" class="btn btn-danger">삭제</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<th:block layout:fragment="footer">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    const currentPage = [[${page.currentPage}]];
+    const lastPage = [[${page.lastPage}]];
+    /*]]>*/
+  </script>
+  <script id="listItemTemplate" type="text/x-handlebars-template">
+    {{#if active}}
+    <li class="page-item active">
+    {{else}}
+    <li class="page-item">
+    {{/if}}
+      <a class="page-link" href="/admin/notice?page={{page}}">{{page}}</a>
+    </li>
+  </script>
+  <script id="ellipsisItemTemplate" type="text/x-handlebars-template">
+    <li class="page-item disabled">
+      <a class="page-link">...</a>
+    </li>
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+          integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="application/javascript" th:src="@{/js/notice/main.js}"></script>
+</th:block>
+</body>
+</html>

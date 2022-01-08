@@ -1,0 +1,11 @@
+
+spring:
+  application:
+    name: admin
+  profiles:
+    active: local
+    include: datasource, http, logging, openapi
+
+server:
+  port: 10091
+  shutdown: graceful

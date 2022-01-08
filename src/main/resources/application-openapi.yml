@@ -1,0 +1,28 @@
+
+spring:
+  config:
+    activate:
+      on-profile: "!real"
+
+springdoc:
+  packages-to-scan: com.closememo.admin.controller.api
+  paths-to-match: /admin/**
+  swagger-ui:
+    csrf:
+      enabled: true
+    path: /admin/swagger-ui.html
+  api-docs:
+    path: /admin/api-docs
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: real
+
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false
