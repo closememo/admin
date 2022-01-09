@@ -6,8 +6,8 @@ import com.closememo.admin.infra.http.command.CommandClient;
 import com.closememo.admin.infra.http.command.request.CommandCreateNoticeRequest;
 import com.closememo.admin.infra.http.command.request.CommandDeleteNoticeRequest;
 import com.closememo.admin.infra.http.command.request.CommandUpdateNoticeRequest;
+import com.closememo.admin.infra.http.query.QueryNoticeClient;
 import com.closememo.admin.infra.http.query.response.QueryNoticePageResponse;
-import com.closememo.admin.infra.http.query.QueryClient;
 import com.closememo.admin.infra.http.query.response.QueryNoticeResponse;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 public class NoticeService {
 
   private final CommandClient commandClient;
-  private final QueryClient queryClient;
+  private final QueryNoticeClient queryNoticeClient;
 
   public NoticeService(CommandClient commandClient,
-      QueryClient queryClient) {
+      QueryNoticeClient queryNoticeClient) {
     this.commandClient = commandClient;
-    this.queryClient = queryClient;
+    this.queryNoticeClient = queryNoticeClient;
   }
 
   public Boolean createNotice(String title, String content) {
@@ -45,7 +45,7 @@ public class NoticeService {
   }
 
   public OffsetPage<NoticeDTO> getNotices(int page, int limit) {
-    QueryNoticePageResponse response = queryClient.getNotices(page, limit);
+    QueryNoticePageResponse response = queryNoticeClient.getNotices(page, limit);
 
     if (CollectionUtils.isEmpty(response.getData())) {
       return OffsetPage.empty();
@@ -61,7 +61,7 @@ public class NoticeService {
   }
 
   public NoticeDTO getNotice(String noticeId) {
-    QueryNoticeResponse response = queryClient.getNotice(noticeId);
+    QueryNoticeResponse response = queryNoticeClient.getNotice(noticeId);
     return convert(response);
   }
 

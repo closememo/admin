@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default.html}">
+<head>
+  <title>notice</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="my-4">
+    <h1>카테고리 새로고침</h1>
+  </div>
+  <div class="py-2">
+    <label for="refreshCategoryEmailInput" class="form-label">카테고리 새로고침</label>
+    <div class="input-group">
+      <input id="refreshCategoryEmailInput" type="email" class="form-control" placeholder="이메일">
+      <button id="refreshCategorySubmit" class="btn btn-outline-secondary" type="button">Button</button>
+    </div>
+  </div>
+  <div class="modal" id="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">empty title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">empty body</div>
+        <div class="modal-footer">
+          <button id="modalConfirm" type="button" class="btn btn-primary">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<th:block layout:fragment="footer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+          integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="application/javascript" th:src="@{/js/category/main.js}"></script>
+</th:block>
+</body>
+</html>
