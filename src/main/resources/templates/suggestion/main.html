@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default.html}">
+<head>
+  <title>notice</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="my-4">
+    <h1>문의사항</h1>
+  </div>
+  <div class="py-2">
+    <div id="suggestionList" class="list-group">
+      <div class="list-group-item-action list-group-item list-group-item-light"
+           th:each="suggestion : ${page.data}">
+        <div class="d-flex">
+          <h5 class="mb-1" th:text="${suggestion.getEmail()}"></h5>
+          <div class="ms-auto">
+            <th:block th:switch="${suggestion.getStatus()}">
+              <span th:case="REGISTERED" class="badge bg-warning text-dark" th:text="${suggestion.getStatus()}"></span>
+              <span th:case="CHECKED" class="badge bg-primary" th:text="${suggestion.getStatus()}"></span>
+              <span th:case="COMPLETED" class="badge bg-success" th:text="${suggestion.getStatus()}"></span>
+              <span th:case="DELETED" class="badge bg-dark" th:text="${suggestion.getStatus()}"></span>
+            </th:block>
+          </div>
+        </div>
+        <div class="mb-1" th:text="${suggestion.getPreview()}"></div>
+        <div class="d-flex">
+          <small class="me-auto" th:text="${suggestion.getCreatedAt()}"></small>
+          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse"
+                  th:attr="data-bs-target=${'#content-' + suggestion.getId()}">
+            본문보기
+          </button>
+        </div>
+        <div class="collapse mt-1" th:id="${'content-' + suggestion.getId()}">
+          <div class="card card-body" th:text="${suggestion.getContent()}"></div>
+          <div class="d-flex mt-1">
+            <button type="button" class="ms-auto btn btn-outline-secondary btn-sm _set-status-button"
+                    data-status="REGISTERED"
+                    th:attr="data-suggestion-id=${suggestion.getId()}">
+              등록처리
+            </button>
+            <button type="button" class="ms-1 btn btn-outline-secondary btn-sm _set-status-button"
+                    data-status="CHECKED"
+                    th:attr="data-suggestion-id=${suggestion.getId()}">
+              확인처리
+            </button>
+            <button type="button" class="ms-1 btn btn-outline-secondary btn-sm _set-status-button"
+                    data-status="COMPLETED"
+                    th:attr="data-suggestion-id=${suggestion.getId()}">
+              완료처리
+            </button>
+            <button type="button" class="ms-1 btn btn-outline-secondary btn-sm _set-status-button"
+                    data-status="DELETED"
+                    th:attr="data-suggestion-id=${suggestion.getId()}">
+              삭제처리
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <ul id="pageNavigation" class="justify-content-center pagination"></ul>
+  </nav>
+</section>
+<th:block layout:fragment="footer">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    const currentPage = [[${page.currentPage}]];
+    const lastPage = [[${page.lastPage}]];
+    /*]]>*/
+  </script>
+  <script id="listItemTemplate" type="text/x-handlebars-template">
+    {{#if active}}
+    <li class="page-item active">
+      {{else}}
+    <li class="page-item">
+      {{/if}}
+      <a class="page-link" href="/admin/notice?page={{page}}">{{page}}</a>
+    </li>
+  </script>
+  <script id="ellipsisItemTemplate" type="text/x-handlebars-template">
+    <li class="page-item disabled">
+      <a class="page-link">...</a>
+    </li>
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+          integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="application/javascript" th:src="@{/js/suggestion/main.js}"></script>
+  <script type="application/javascript" th:src="@{/js/utils/pageUtils.js}"></script>
+</th:block>
+</body>
+</html>

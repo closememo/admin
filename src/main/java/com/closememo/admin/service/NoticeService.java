@@ -2,13 +2,13 @@ package com.closememo.admin.service;
 
 import com.closememo.admin.dto.NoticeDTO;
 import com.closememo.admin.dto.shared.OffsetPage;
-import com.closememo.admin.infra.http.command.CommandClient;
+import com.closememo.admin.infra.http.command.CommandNoticeClient;
 import com.closememo.admin.infra.http.command.request.CommandCreateNoticeRequest;
 import com.closememo.admin.infra.http.command.request.CommandDeleteNoticeRequest;
 import com.closememo.admin.infra.http.command.request.CommandUpdateNoticeRequest;
 import com.closememo.admin.infra.http.query.QueryNoticeClient;
-import com.closememo.admin.infra.http.query.response.QueryNoticePageResponse;
 import com.closememo.admin.infra.http.query.response.QueryNoticeResponse;
+import com.closememo.admin.infra.http.query.response.QueryPageResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
@@ -17,35 +17,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoticeService {
 
-  private final CommandClient commandClient;
+  private final CommandNoticeClient commandNoticeClient;
   private final QueryNoticeClient queryNoticeClient;
 
-  public NoticeService(CommandClient commandClient,
+  public NoticeService(CommandNoticeClient commandNoticeClient,
       QueryNoticeClient queryNoticeClient) {
-    this.commandClient = commandClient;
+    this.commandNoticeClient = commandNoticeClient;
     this.queryNoticeClient = queryNoticeClient;
   }
 
   public Boolean createNotice(String title, String content) {
     CommandCreateNoticeRequest request = new CommandCreateNoticeRequest(title, content);
-    commandClient.createNotice(request);
+    commandNoticeClient.createNotice(request);
     return true;
   }
 
   public Boolean updateNotice(String noticeId, String title, String content) {
     CommandUpdateNoticeRequest request = new CommandUpdateNoticeRequest(noticeId, title, content);
-    commandClient.updateNotice(request);
+    commandNoticeClient.updateNotice(request);
     return true;
   }
 
   public Boolean deleteNotice(String noticeId) {
     CommandDeleteNoticeRequest request = new CommandDeleteNoticeRequest(noticeId);
-    commandClient.deleteNotice(request);
+    commandNoticeClient.deleteNotice(request);
     return true;
   }
 
   public OffsetPage<NoticeDTO> getNotices(int page, int limit) {
-    QueryNoticePageResponse response = queryNoticeClient.getNotices(page, limit);
+    QueryPageResponse<QueryNoticeResponse> response = queryNoticeClient.getNotices(page, limit);
 
     if (CollectionUtils.isEmpty(response.getData())) {
       return OffsetPage.empty();

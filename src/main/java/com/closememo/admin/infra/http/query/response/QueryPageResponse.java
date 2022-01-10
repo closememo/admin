@@ -4,9 +4,9 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class QueryNoticePageResponse {
+public class QueryPageResponse<T> {
 
-  private List<QueryNoticeResponse> data;
+  private List<T> data;
   private long total;
   private int currentPage;
   private int limit;

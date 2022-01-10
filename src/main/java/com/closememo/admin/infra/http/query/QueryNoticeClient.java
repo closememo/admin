@@ -1,7 +1,8 @@
 package com.closememo.admin.infra.http.query;
 
-import com.closememo.admin.infra.http.query.response.QueryNoticePageResponse;
 import com.closememo.admin.infra.http.query.response.QueryNoticeResponse;
+import com.closememo.admin.infra.http.query.response.QueryPageResponse;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class QueryNoticeClient extends QueryClient {
     super(restTemplate);
   }
 
-  public QueryNoticePageResponse getNotices(int page, int limit) {
+  public QueryPageResponse<QueryNoticeResponse> getNotices(int page, int limit) {
     String uriString = UriComponentsBuilder.fromPath("/query/system/notices")
         .queryParam("page", page)
         .queryParam("limit", limit)
@@ -24,8 +25,12 @@ public class QueryNoticeClient extends QueryClient {
         .get(uriString)
         .build();
 
-    ResponseEntity<QueryNoticePageResponse> response =
-        restTemplate.exchange(requestEntity, QueryNoticePageResponse.class);
+    ParameterizedTypeReference<QueryPageResponse<QueryNoticeResponse>> type =
+        new ParameterizedTypeReference<>() {
+        };
+
+    ResponseEntity<QueryPageResponse<QueryNoticeResponse>> response =
+        restTemplate.exchange(requestEntity, type);
 
     validateResponse(response, "[QUERY] getNotices failed.");
 
