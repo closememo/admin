@@ -1,7 +1,7 @@
 package com.closememo.admin.controller.view;
 
+import com.closememo.admin.controller.shared.dto.OffsetPage;
 import com.closememo.admin.dto.SuggestionDTO;
-import com.closememo.admin.dto.shared.OffsetPage;
 import com.closememo.admin.service.SuggestionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

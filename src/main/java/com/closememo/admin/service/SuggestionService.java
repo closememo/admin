@@ -1,7 +1,7 @@
 package com.closememo.admin.service;
 
+import com.closememo.admin.controller.shared.dto.OffsetPage;
 import com.closememo.admin.dto.SuggestionDTO;
-import com.closememo.admin.dto.shared.OffsetPage;
 import com.closememo.admin.infra.http.command.CommandSuggestionClient;
 import com.closememo.admin.infra.http.command.request.CommandChangeSuggestionStatusRequest;
 import com.closememo.admin.infra.http.query.QuerySuggestionClient;

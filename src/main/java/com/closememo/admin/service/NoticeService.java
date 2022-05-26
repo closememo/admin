@@ -1,7 +1,7 @@
 package com.closememo.admin.service;
 
+import com.closememo.admin.controller.shared.dto.OffsetPage;
 import com.closememo.admin.dto.NoticeDTO;
-import com.closememo.admin.dto.shared.OffsetPage;
 import com.closememo.admin.infra.http.command.CommandNoticeClient;
 import com.closememo.admin.infra.http.command.request.CommandCreateNoticeRequest;
 import com.closememo.admin.infra.http.command.request.CommandDeleteNoticeRequest;

@@ -1,4 +1,4 @@
-package com.closememo.admin.dto.shared;
+package com.closememo.admin.controller.shared.dto;
 
 import java.util.List;
 import lombok.AccessLevel;
