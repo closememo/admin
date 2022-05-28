@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default.html}">
+<head>
+  <title>new notification</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="my-4">
+    <h2>새 알림</h2>
+  </div>
+  <form id="form">
+    <div class="mb-3">
+      <label for="titleInput" class="form-label">제목</label>
+      <input id="titleInput" class="form-control" type="text" placeholder="제목"/>
+    </div>
+    <div class="mb-3">
+      <label for="contentInput" class="form-label">본문</label>
+      <textarea id="contentInput" class="form-control" rows="10"></textarea>
+    </div>
+    <div class="mb-3 row">
+      <div class="col">
+        <label for="notifyStartInput" class="form-label">알림시작</label>
+        <input id="notifyStartInput" type="datetime-local"/>
+      </div>
+      <div class="col">
+        <label for="notifyEndInput" class="form-label">알림끝</label>
+        <input id="notifyEndInput" type="datetime-local"/>
+      </div>
+    </div>
+    <div class="d-flex">
+      <button id="submitButton" type="submit" class="ms-auto btn btn-primary">작성</button>
+    </div>
+  </form>
+</section>
+<th:block layout:fragment="footer">
+  <script type="application/javascript" th:src="@{/js/notification/new.js}"></script>
+</th:block>
+</body>
+</html>

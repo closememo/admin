@@ -4,7 +4,7 @@ spring:
     name: admin
   profiles:
     active: local
-    include: datasource, http, logging, openapi
+    include: datasource, http, jackson, logging, openapi
 
 server:
   port: 10091
