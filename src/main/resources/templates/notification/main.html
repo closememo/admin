@@ -25,8 +25,8 @@
           <div th:text="${currentNotification.getNotifyStart()} + ' ~ ' + ${currentNotification.getNotifyEnd()}"></div>
           <button type="button" class="ms-auto btn btn-outline-secondary btn-sm _activation-button"
                   th:attr="data-notification-id=${currentNotification.getId()},data-is-active=true">비활성화</button>
-          <button type="button" class="ms-1 btn btn-outline-secondary btn-sm _update-button"
-                  th:attr="data-notification-id=${currentNotification.getId()}">수정</button>
+          <a type="button" class="ms-1 btn btn-outline-secondary btn-sm _update-button"
+             th:href="@{/admin/notification/update(notificationId=${currentNotification.getId()})}">수정</a>
           <button type="button" class="ms-1 btn btn-outline-secondary btn-sm _delete-button"
                   th:attr="data-notification-id=${currentNotification.getId()}">삭제</button>
         </div>
@@ -55,8 +55,8 @@
           <button type="button" class="ms-auto btn btn-outline-secondary btn-sm _activation-button"
                   th:attr="data-notification-id=${notification.getId()},data-is-active=${notification.isActive()}"
                   th:text="${notification.isActive() ? '비활성화' : '활성화'}"></button>
-          <button type="button" class="ms-1 btn btn-outline-secondary btn-sm _update-button"
-                  th:attr="data-notification-id=${notification.getId()}">수정</button>
+          <a type="button" class="ms-1 btn btn-outline-secondary btn-sm _update-button"
+             th:href="@{/admin/notification/update(notificationId=${notification.getId()})}">수정</a>
           <button type="button" class="ms-1 btn btn-outline-secondary btn-sm _delete-button"
                   th:attr="data-notification-id=${notification.getId()}">삭제</button>
         </div>

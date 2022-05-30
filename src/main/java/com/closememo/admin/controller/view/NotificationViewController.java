@@ -1,7 +1,6 @@
 package com.closememo.admin.controller.view;
 
 import com.closememo.admin.controller.shared.dto.OffsetPage;
-import com.closememo.admin.dto.CurrentNotificationDTO;
 import com.closememo.admin.dto.NotificationDTO;
 import com.closememo.admin.service.NotificationService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,7 @@ public class NotificationViewController {
         notificationService.getNotifications(page, limit);
     NotificationDTO currentNotification = notificationService.getCurrentNotification();
 
-    ModelAndView modelAndView = new ModelAndView("/notification/main");
+    ModelAndView modelAndView = new ModelAndView("notification/main");
     modelAndView.addObject("page", notificationPage);
     modelAndView.addObject("currentNotification", currentNotification);
     return modelAndView;
